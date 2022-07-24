@@ -1,10 +1,18 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/login">Pijava</router-link>
+    <nav id="nav" class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="#">
+        <img src="@/assets/fipu_logo.png" height="40" class="d-inline-block align-text-top" loading="lazy" />
+      </a>
+
+      <router-link to="/">Home</router-link> | 
+      <router-link to="/login">Pijava</router-link> |
+      <router-link to="/signup">Registracija</router-link>
     </nav>
-    <router-view/>
+    
+    <div class="container">
+      <router-view />
+    </div>
   </div>
 </template>
 
