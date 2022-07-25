@@ -7,7 +7,7 @@
         </a>
 
         <form class="d-flex mx-auto" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+          <input v-model="store.searchTerm" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
         </form>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggleMobileMenu" aria-colcount="toggleMobileMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,6 +32,19 @@
     </div>
   </div>
 </template>
+
+<script>
+import store from "@/store";
+
+export default {
+  name: "app",
+  data() {
+    return {
+      store,
+    };
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
