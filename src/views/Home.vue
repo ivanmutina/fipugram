@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-8">
-      <InstagramCard v-for="card in filteredCards" :key="card" :info="card" />
+      <InstagramCard v-for="card in filteredCards" :key="card.url" :info="card" />
     </div>
     <div class="col-4"></div>
   </div>

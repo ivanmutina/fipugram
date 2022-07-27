@@ -37,6 +37,7 @@
 <script>
 import { initializeApp } from "@/firebase.js";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 const auth = getAuth();
 
 export default {
@@ -47,17 +48,6 @@ export default {
       password: "",
       passwordRepeat: "",
     };
-  },
-  methods: {
-    signupClick() {
-      createUserWithEmailAndPassword(auth, this.username, this.password)
-        .then(function () {
-          console.log("Uspjesna registracija");
-        })
-        .catch(function () {
-          console.log("Doslo je do greske");
-        });
-    },
   },
 };
 </script>

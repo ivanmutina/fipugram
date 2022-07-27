@@ -16,11 +16,14 @@
 
         <div class="collapse navbar-collapse" id="toggleMobileMenu">
           <ul class="navbar-nav ms-auto text-center">
-            <li>
+            <li v-if="!store.currentUser">
               <router-link to="/login" class="nav-link"><b>Login</b></router-link>
             </li>
-            <li>
+            <li v-if="!store.currentUser">
               <router-link to="/signup" class="nav-link"><b>Signup</b></router-link>
+            </li>
+            <li>
+              <a v-if="store.currentUser" href="#" @click="logoutClick()" class="nav-link"><b>Logout</b></a>
             </li>
           </ul>
         </div>
@@ -35,6 +38,26 @@
 
 <script>
 import store from "@/store";
+import { initializeApp } from "@/firebase.js";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import router from "@/router";
+
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("***", user.email);
+    store.currentUser = user.email;
+    const uid = user.uid;
+  } else {
+    console.log("*** No user");
+    store.currentUser = null;
+
+    // da je prvi screen login
+    if (router.name !== "Login") {
+      router.push({ name: "Login" });
+    }
+  }
+});
 
 export default {
   name: "app",
@@ -42,6 +65,13 @@ export default {
     return {
       store,
     };
+  },
+  methods: {
+    logoutClick() {
+      signOut(auth).then(() => {
+        this.$router.push({ name: "Login" });
+      });
+    },
   },
 };
 </script>
