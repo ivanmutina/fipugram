@@ -44,16 +44,25 @@ import router from "@/router";
 
 const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
+  // sadrzi trenutnu rutu / provjerava stanje
+  const currentRoute = router.currentRoute;
+
   if (user) {
     console.log("***", user.email);
     store.currentUser = user.email;
+
+    // ako sam na stranici gdje nije potreban user, odvedi me na home
+    if (!currentRoute.meta.needsUser) {
+      router.push({ name: "home" });
+    }
+
     const uid = user.uid;
   } else {
     console.log("*** No user");
     store.currentUser = null;
 
     // da je prvi screen login
-    if (router.name !== "Login") {
+    if (currentRoute.meta.needsUser) {
       router.push({ name: "Login" });
     }
   }

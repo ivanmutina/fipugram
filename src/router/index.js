@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/Home.vue'
+import Home from '../views/Home.vue'
+import store from '@/store';
 
 Vue.use(VueRouter)
 
@@ -8,7 +9,10 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: Home,
+    meta: {
+      needsUser: true,
+    }
   },
   {
     path: '/Login',
@@ -32,6 +36,22 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+});
+
+// poziva se prije promjene svake rute
+// pogleda gdje smo i gdje idemo i next se pokrece ako dozvolimo
+router.beforeEach( (to, from, next) => {
+  console.log("Stara ruta:", from.name, "Nova ruta:", to.name, "korisnik", store)
+  
+  // ako je current user null, vraca true
+  const noUser = store.currentUser === null;
+
+  if(noUser && to.meta.needsUser){
+    next("Login");
+  }else {
+    next();
+  }
+
 })
 
 export default router
