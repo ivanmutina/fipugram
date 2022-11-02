@@ -1,3 +1,3 @@
-# fipugram
+# Fipugram
 
-The college code-along project with "to do" tasks for practising.
+Code-along projekt uz samostalne zadatke iz kolegija Programsko inženjerstvo [Fakulteta informatike u Puli](https://fipu.unipu.hr/)
